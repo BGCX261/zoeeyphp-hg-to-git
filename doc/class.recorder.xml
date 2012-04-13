@@ -1118,9 +1118,9 @@ $recorder-&gt;commit();
       <title>描述</title>
 
       <methodsynopsis>
-        <type>bool</type>
+        <void />
 
-        <methodname><link linkend="recorder.commit">commit</link></methodname>
+        <methodname><link linkend="recorder.close">close</link></methodname>
 
         <void />
       </methodsynopsis>

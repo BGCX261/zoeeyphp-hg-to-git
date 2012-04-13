@@ -438,6 +438,19 @@
             <initializer>FALSE</initializer>
           </methodparam>
         </methodsynopsis>
+
+        <methodsynopsis>
+          <void />
+
+          <methodname><link
+          linkend="loader.setValues">setValues</link></methodname>
+
+          <methodparam>
+            <type>array</type>
+
+            <parameter>$values</parameter>
+          </methodparam>
+        </methodsynopsis>
       </classsynopsis>
     </example>
 
@@ -615,6 +628,15 @@
 
         <listitem>
           <para>获取客户端IP，并填充到指定变量。</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><link
+        linkend="loader.setValues">ZeLoader::setValues</link></term>
+
+        <listitem>
+          <para>载入预设值。</para>
         </listitem>
       </varlistentry>
     </variablelist>
@@ -2068,7 +2090,7 @@ $loader-&gt;fromSession($values, 'name, age');
       <para>获取当前请求者IP地址。</para>
 
       <note>
-        <para>当需要方式 HTTP_X_FORWARDED_FOR 欺诈时，请使用 <link
+        <para>当需要防止 HTTP_X_FORWARDED_FOR 欺诈时，请使用 <link
         linkend="loader.getServer">getServer('REMOTE_ADDR')</link></para>
       </note>
     </simplesect>
@@ -2198,6 +2220,74 @@ $loader-&gt;fromIp($values, 'ip_a, ip_b');
 
 $values = new stdClass();
 $loader-&gt;fromIp($values, 'ip_a, ip_b');
+
+</programlisting>
+      </example>
+    </simplesect>
+  </section>
+
+  <section xml:id="loader.setValues">
+    <title>setValues</title>
+
+    <para>载入预设值。</para>
+
+    <simplesect>
+      <title>描述</title>
+
+      <methodsynopsis>
+        <void />
+
+        <methodname><link
+        linkend="loader.setValues">setValues</link></methodname>
+
+        <methodparam>
+          <type>array</type>
+
+          <parameter>$values</parameter>
+        </methodparam>
+      </methodsynopsis>
+
+      <para>载入预设值，如ZeRouter的参数结果，使用 GET 或 REQUEST 获取。优先级低于常规GET传参。</para>
+    </simplesect>
+
+    <simplesect>
+      <title>参数</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>values</term>
+
+          <listitem>
+            <para>预设值。</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </simplesect>
+
+    <simplesect>
+      <title>返回值</title>
+
+      <para>无返回值 。</para>
+    </simplesect>
+
+    <simplesect>
+      <title>范例</title>
+
+      <example>
+        <title>对象或数组填充</title>
+
+        <programlisting>
+/* @var $router Router */
+$router = new ZeRouter();
+$router-&gt;add('/:action');
+$router-&gt;addArray('action', array('add'), '{/}');
+$router-&gt;addArray('action', array('list', 'search'), '/:page')-&gt;append('{/}', '-');
+$router-&gt;addArray('action', array('view', 'edit', 'del'), '/:id');
+$values = $router-&gt;parse(getenv('PATH_INFO'));
+
+/* @var $loader Loader global */
+$loader = new ZeLoader();
+$loader-&gt;setValues($values);
 
 </programlisting>
       </example>

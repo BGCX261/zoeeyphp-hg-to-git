@@ -51,7 +51,7 @@
           <methodname><link
           linkend="status.getLabel">getLabel</link></methodname>
 
-          <void />
+          <void/>
         </methodsynopsis>
 
         <methodsynopsis>
@@ -73,7 +73,7 @@
           <methodname><link
           linkend="status.getName">getName</link></methodname>
 
-          <void />
+          <void/>
         </methodsynopsis>
       </classsynopsis>
     </example>
@@ -221,7 +221,7 @@ $status-&gt;getBrief('zh-CN');  /* '请认真填写文章标题。' */
         <methodname><link
         linkend="status.getLabel">getLabel</link></methodname>
 
-        <void />
+        <void/>
       </methodsynopsis>
 
       <para>状态分类主要用于区分处理流程。</para>
@@ -276,12 +276,6 @@ $status-&gt;getLabel(); /* 'init' */
     </simplesect>
 
     <simplesect>
-      <title>返回值</title>
-
-      <para>类别信息。</para>
-    </simplesect>
-
-    <simplesect>
       <title>参数</title>
 
       <variablelist>
@@ -293,6 +287,12 @@ $status-&gt;getLabel(); /* 'init' */
           </listitem>
         </varlistentry>
       </variablelist>
+    </simplesect>
+
+    <simplesect>
+      <title>返回值</title>
+
+      <para>类别信息。</para>
     </simplesect>
 
     <simplesect>
@@ -328,7 +328,7 @@ $status-&gt;getBrief('zh-CN');  /* '请认真填写文章标题。' */
 
         <methodname><link linkend="status.getName">getName</link></methodname>
 
-        <void />
+        <void/>
       </methodsynopsis>
 
       <para>此名称是对状态的详细标注。可用在细节逻辑上的判断，也可以作为稳定的标注信息，传递到界面中供Js使用。</para>

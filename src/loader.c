@@ -133,7 +133,7 @@ PHP_METHOD(ze_loader, __construct) {
 
 /** {{{ get global by name
  */
-PHPAPI zval ** get_global_by_name(zval * values, char * name, int name_len, char * key, int key_len, zval * def TSRMLS_DC) {
+PHP_ZOEEY_API zval ** get_global_by_name(zval * values, char * name, int name_len, char * key, int key_len, zval * def TSRMLS_DC) {
     zval ** val         = NULL;
     zval ** datas       = NULL;
     zend_bool is_def    = 0;
@@ -177,7 +177,7 @@ PHPAPI zval ** get_global_by_name(zval * values, char * name, int name_len, char
 
 /** {{{ get track
  */
-PHPAPI zval ** get_track(zval * values, char * key, int key_len, zval * def, int track TSRMLS_DC) {
+PHP_ZOEEY_API zval ** get_track(zval * values, char * key, int key_len, zval * def, int track TSRMLS_DC) {
     zval **   val       = NULL;
     zend_bool is_def    = 0;
 
@@ -246,7 +246,7 @@ PHPAPI zval ** get_track(zval * values, char * key, int key_len, zval * def, int
 
 /** {{{ get client ip
  */
-PHPAPI zval * get_ip(zend_bool is_format TSRMLS_DC) {
+PHP_ZOEEY_API zval * get_ip(zend_bool is_format TSRMLS_DC) {
     zval **   val           = NULL;
     char  *   ip            = NULL;
     zval  *   ip_long       = NULL;
@@ -336,7 +336,7 @@ PHPAPI zval * get_ip(zend_bool is_format TSRMLS_DC) {
 
 /** {{{  from track
  */
-PHPAPI void from_track_var(zval * values, zval * fields, zval * names, zval * def, int track TSRMLS_DC) {
+PHP_ZOEEY_API void from_track_var(zval * values, zval * fields, zval * names, zval * def, int track TSRMLS_DC) {
     zval      *  names_list     = NULL;
     zval     **  field          = NULL;
     HashTable *  names_table    = NULL;
@@ -397,7 +397,7 @@ PHPAPI void from_track_var(zval * values, zval * fields, zval * names, zval * de
 
 /** {{{  from ip
  */
-PHPAPI void from_ip(zval * fields, zval * names, zend_bool is_format TSRMLS_DC) {
+PHP_ZOEEY_API void from_ip(zval * fields, zval * names, zend_bool is_format TSRMLS_DC) {
     zval      *  names_list     = NULL;
     zval     **  field          = NULL;
     HashTable *  names_table    = NULL;

@@ -50,7 +50,7 @@ PHP_METHOD(ze_status, __construct) {
     if (name) {
         zend_update_property(ze_status_ce, self, ZEND_STRL(ZE_NAME)  , name  TSRMLS_CC);
     }
-	
+
     if (brief) {
         zend_update_property(ze_status_ce, self, ZEND_STRL(ZE_BRIEF) , brief TSRMLS_CC);
     }
@@ -67,7 +67,7 @@ PHP_METHOD(ze_status, getLabel) {
     self = getThis();
 
     label = zend_read_property(ze_status_ce, self, ZEND_STRL(ZE_LABEL), 0 TSRMLS_CC);
-	
+    
     RETURN_ZVAL(label, 1, 0);
 }
 /* }}} */
@@ -75,16 +75,17 @@ PHP_METHOD(ze_status, getLabel) {
 /** {{{ public ZeStatus::getName()
  */
 PHP_METHOD(ze_status, getName) {
-    zval *   self        = NULL;
-    zval *   name        = NULL;
+    zval * self        = NULL;
+    zval * name        = NULL;
 
     self = getThis();
 
     name = zend_read_property(ze_status_ce, self, ZEND_STRL(ZE_NAME), 1 TSRMLS_CC);
-	
+    
     if (name) {
         RETURN_ZVAL(name, 1, 0);
     }
+
     RETURN_NULL();
 
 }
@@ -100,7 +101,7 @@ PHP_METHOD(ze_status, getBrief) {
     int     name_len    = 0;
     zval ** msg_pp      = NULL;
     zval *  msg_p       = NULL;
-	zval *  msg			= NULL;
+    zval *  msg            = NULL;
     zval    is_debug          ;
     char *  debug_msg   = NULL;
     int     len         = 0;
@@ -114,34 +115,36 @@ PHP_METHOD(ze_status, getBrief) {
     self = getThis();
 
     brief = zend_read_property(ze_status_ce, self, ZEND_STRL(ZE_BRIEF), 1 TSRMLS_CC);
-	if (!brief) {
-		RETURN_NULL();
-	} 
-	
+    
+    if (!brief) {
+        RETURN_NULL();
+    } 
+    
     if (Z_TYPE_P(brief) == IS_ARRAY && name_len) {
+    
         if (zend_hash_find(Z_ARRVAL_P(brief), name, name_len + 1, (void **) &msg_pp) == SUCCESS) {
-			 
-			ALLOC_INIT_ZVAL(msg);
-			*msg = **msg_pp;
+             
+            ALLOC_INIT_ZVAL(msg);
+            *msg = **msg_pp;
         }
     } else if (Z_TYPE_P(brief) == IS_OBJECT && name_len) {
-	
-			msg_p = zend_read_property(Z_OBJCE_P(brief), brief, name, name_len , 1 TSRMLS_CC);
-			ALLOC_INIT_ZVAL(msg);
-			*msg = *msg_p;
+    
+            msg_p = zend_read_property(Z_OBJCE_P(brief), brief, name, name_len , 1 TSRMLS_CC);
+            ALLOC_INIT_ZVAL(msg);
+            *msg = *msg_p;
     } else if (Z_TYPE_P(brief) == IS_STRING) {
 
-			ALLOC_INIT_ZVAL(msg);
-			*msg = *brief;
+            ALLOC_INIT_ZVAL(msg);
+            *msg = *brief;
     } 
 
-	if (!msg) {
-		RETURN_NULL();
-	}
-	
-	zval_copy_ctor(msg);
-	INIT_PZVAL(msg);
-	
+    if (!msg) {
+        RETURN_NULL();
+    }
+    
+    zval_copy_ctor(msg);
+    INIT_PZVAL(msg);
+    
     if (zend_get_constant(ZEND_STRL(ZE_DEBUG), & is_debug TSRMLS_CC)) {
 
         name_z = zend_read_property(ze_status_ce, self, ZEND_STRL(ZE_NAME), 0 TSRMLS_CC);
@@ -154,7 +157,7 @@ PHP_METHOD(ze_status, getBrief) {
         }
         ZE_DTOR(is_debug);
     }
-	
+    
     RETURN_ZVAL(msg, 1, 1);
 }
 /* }}} */
@@ -175,22 +178,26 @@ PHP_METHOD(ze_status, toArray) {
     brief = zend_read_property(ze_status_ce, self, ZEND_STRL(ZE_BRIEF), 1 TSRMLS_CC);
 
     ZE_NEW_ARRAY(array);
-	Z_ADDREF_P(label);
+    Z_ADDREF_P(label);
     add_assoc_zval(array, "label", label);
 
     if (name){
-	   Z_ADDREF_P(name);
+
+       Z_ADDREF_P(name);
        add_assoc_zval(array, "name", name);
     } else {
+
        add_assoc_null(array, "name");
     }
     if (brief){
-	   Z_ADDREF_P(brief);
+
+       Z_ADDREF_P(brief);
        add_assoc_zval(array, "brief", brief);
     } else {
+
        add_assoc_null(array, "brief");
     }
-	
+    
     RETURN_ZVAL(array, 1, 1);
 
 }

@@ -17,15 +17,23 @@
 #ifndef PHP_ZOEEY_H
 #define PHP_ZOEEY_H
 
+
+#define ZE_DEBUG "ZE_DEBUG"
+
+#define ZE_VERSION "1.1" 
+
+#define ZE_ERROR_URL "http://zoeey.org/php_errordoc.php/%s"
+
+
 extern zend_module_entry zoeey_module_entry;
 #define phpext_zoeey_ptr &zoeey_module_entry
 
 #ifdef PHP_WIN32
-#    define PHP_ZOEEY_API __declspec(dllexport)
+#define PHP_ZOEEY_API __declspec(dllexport)
 #elif defined(__GNUC__) && __GNUC__ >= 4
-#    define PHP_ZOEEY_API __attribute__ ((visibility("default")))
+#define PHP_ZOEEY_API __attribute__ ((visibility("default")))
 #else
-#    define PHP_ZOEEY_API
+#define PHP_ZOEEY_API
 #endif
 
 #ifdef ZTS
@@ -38,29 +46,12 @@ PHP_RINIT_FUNCTION(zoeey);
 PHP_RSHUTDOWN_FUNCTION(zoeey);
 PHP_MINFO_FUNCTION(zoeey);
 
-/* PHP_FUNCTION(zoeey); */
-
-
-
-ZEND_BEGIN_MODULE_GLOBALS(zoeey)
-    char * errors_doc_url;
-ZEND_END_MODULE_GLOBALS(zoeey)
-
-extern ZEND_DECLARE_MODULE_GLOBALS(zoeey);
-
 
 #ifdef ZTS
 #define ZOEEY_G(v) TSRMG(zoeey_globals_id, zend_zoeey_globals *, v)
 #else
 #define ZOEEY_G(v) (zoeey_globals.v)
 #endif
-
-
-
-/* config */
-
-/* constant */
-#define ZE_DEBUG "ZE_DEBUG"
 
 
 /** {{{ new array

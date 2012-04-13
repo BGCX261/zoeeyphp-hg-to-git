@@ -17,9 +17,9 @@
 #ifndef ZE_HELPER_H
 #define ZE_HELPER_H
 
-PHPAPI zval * ze_call_method(zval ** object_pp, zend_class_entry * obj_ce , zend_function ** fn_proxy, char * function_name , int function_name_len, zval ** retval_ptr_ptr, int param_count, zval *** params TSRMLS_DC);
+PHP_ZOEEY_API zval * ze_call_method(zval ** object_pp, zend_class_entry * obj_ce , zend_function ** fn_proxy, char * function_name , int function_name_len, zval ** retval_ptr_ptr, int param_count, zval *** params TSRMLS_DC);
 
-PHPAPI void ze_error(int type TSRMLS_DC, const char * name, ...);
+PHP_ZOEEY_API void ze_error(int type TSRMLS_DC, const char * name, ...);
 
 #endif    /* ZE_HELPER_H */
 

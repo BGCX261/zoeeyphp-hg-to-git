@@ -24,9 +24,9 @@
 #include "helper.h"
 
 
-PHPAPI void ze_error(int type TSRMLS_DC, const char * name, ... ) {
+PHP_ZOEEY_API void ze_error(int type TSRMLS_DC, const char * name, ... ) {
     va_list ap                ;
-    int     len             = 0;;
+    int     len             = 0;
     char *  buf             = NULL;
     char *  msg             = NULL;
 
@@ -46,7 +46,7 @@ PHPAPI void ze_error(int type TSRMLS_DC, const char * name, ... ) {
 }
 
 
-ZEND_API zval * ze_call_method(zval **object_pp, zend_class_entry *obj_ce
+PHP_ZOEEY_API zval * ze_call_method(zval **object_pp, zend_class_entry *obj_ce
                              , zend_function **fn_proxy, char *function_name
                              , int function_name_len, zval **retval_ptr_ptr
                              , int param_count, zval *** params TSRMLS_DC) {

@@ -1002,9 +1002,9 @@ zend_function_entry ze_router_methods[] = {
     PHP_ME(ze_router, append        , router_append_args, ZEND_ACC_PUBLIC)
     PHP_ME(ze_router, shiftSep      , router_shiftSep_args, ZEND_ACC_PUBLIC)
     PHP_ME(ze_router, end           , NULL, ZEND_ACC_PUBLIC)
-    PHP_ME(ze_router, getRules, NULL, ZEND_ACC_PUBLIC)
-    PHP_ME(ze_router, parse, router_parse_args, ZEND_ACC_PUBLIC)
-    PHP_ME(ze_router, __destruct       , NULL                     , ZEND_ACC_PUBLIC| ZEND_ACC_DTOR){
+    PHP_ME(ze_router, getRules      , NULL, ZEND_ACC_PUBLIC)
+    PHP_ME(ze_router, parse         , router_parse_args, ZEND_ACC_PUBLIC)
+    PHP_ME(ze_router, __destruct    , NULL, ZEND_ACC_PUBLIC| ZEND_ACC_DTOR){
         NULL, NULL, NULL
     }
 };

@@ -18,9 +18,11 @@
 #include "config.h"
 #endif
 
+
 #include "php.h"
 #include "php_ini.h"
 #include "ext/standard/info.h"
+#include "ext/standard/php_standard.h"
 #include "php_zoeey.h"
 
 /* classes */
@@ -31,19 +33,10 @@
 #include "recorder.h"
 #include "status.h"
 
-ZEND_DECLARE_MODULE_GLOBALS(zoeey)
-
-
-/* True global resources - no need for thread safety here */
-static int le_zoeey;
-
-#if ZEND_MODULE_API_NO >= 220050617
-static zend_module_dep php_zoeey_deps[] = {
-    ZEND_MODULE_REQUIRED("PDO")
-    ZEND_MODULE_REQUIRED("pdo_mysql")
+static const zend_module_dep php_zoeey_deps[] = {
+    ZEND_MOD_REQUIRED("PDO")
     {NULL,NULL,NULL}
 };
-#endif
 
 
 /* {{{ zoeey_functions[]
@@ -53,53 +46,19 @@ const zend_function_entry zoeey_functions[] = {
 };
 /* }}} */
 
-/* {{{ zoeey_module_entry
+/* {{{ PHP_INI
  */
-zend_module_entry zoeey_module_entry = {
-#if ZEND_MODULE_API_NO >= 220050617
-    STANDARD_MODULE_HEADER_EX, NULL,
-    php_zoeey_deps,
-#elif ZEND_MODULE_API_NO >= 20010901
-    STANDARD_MODULE_HEADER,
-#endif
-    "zoeey",
-    zoeey_functions,
-    PHP_MINIT(zoeey),
-    PHP_MSHUTDOWN(zoeey),
-    PHP_RINIT(zoeey),
-    PHP_RSHUTDOWN(zoeey),
-    PHP_MINFO(zoeey),
-#if ZEND_MODULE_API_NO >= 20010901
-    "0.1", /* zoeey version */
-#endif
-    STANDARD_MODULE_PROPERTIES
-};
-/* }}} */
 
 #ifdef COMPILE_DL_ZOEEY
 ZEND_GET_MODULE(zoeey)
 #endif
 
-/* {{{ PHP_INI
- */
-PHP_INI_BEGIN()
-    STD_PHP_INI_ENTRY("errors_doc_url",      "http://zoeey.org/php_errordoc.php/%s", PHP_INI_ALL, OnUpdateLong, errors_doc_url, zend_zoeey_globals, zoeey_globals)
-PHP_INI_END()
-/* }}} */
-
-/* {{{ php_zoeey_init_globals
- */
-static void php_zoeey_init_globals(zend_zoeey_globals * zoeey_globals)
-{
-        zoeey_globals->errors_doc_url = NULL;
-}
-/* }}} */
+ 
 
 /* {{{ PHP_MINIT_FUNCTION
  */
 PHP_MINIT_FUNCTION(zoeey)
 {
-    REGISTER_INI_ENTRIES();
     PHP_MINIT(ze_router)(INIT_FUNC_ARGS_PASSTHRU);
     PHP_MINIT(ze_loader)(INIT_FUNC_ARGS_PASSTHRU);
     PHP_MINIT(ze_activestring)(INIT_FUNC_ARGS_PASSTHRU);
@@ -142,9 +101,33 @@ PHP_MINFO_FUNCTION(zoeey)
     php_info_print_table_start();
     php_info_print_table_header(2, "zoeey support", "enabled");
     php_info_print_table_end();
-
-    DISPLAY_INI_ENTRIES();
+ 
 }
+/* }}} */
+
+
+
+/* {{{ zoeey_module_entry
+ */
+zend_module_entry zoeey_module_entry = {
+#if ZEND_MODULE_API_NO >= 220050617
+    STANDARD_MODULE_HEADER_EX, NULL,
+    php_zoeey_deps,
+#elif ZEND_MODULE_API_NO >= 20010901
+    STANDARD_MODULE_HEADER,
+#endif
+    "zoeey",
+    zoeey_functions,
+    PHP_MINIT(zoeey),
+    PHP_MSHUTDOWN(zoeey),
+    PHP_RINIT(zoeey),
+    PHP_RSHUTDOWN(zoeey),
+    PHP_MINFO(zoeey),
+#if ZEND_MODULE_API_NO >= 20010901
+    ZE_VERSION, /* zoeey version */
+#endif
+    STANDARD_MODULE_PROPERTIES
+};
 /* }}} */
 
 /*
